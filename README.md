@@ -7,7 +7,7 @@ It automatically searches for route-components in your component folder and adds
 ## Installation
 
 1. **Fork** this repository
-2. Run `neoan3 add component sroehrl/neoan3Pwa https://github.com/[userOrOrg]/[forkedRepo]` in your project folder
+2. Run `neoan3 add component sroehrl/neoan3Pwa https://github.com/[userOrOrg]/[forkedRepo].git` in your project folder
 3. In your frame, add the manifest and the service worker registration to your constants
 
 ```PHP
