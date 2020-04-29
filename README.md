@@ -1,7 +1,7 @@
 # neoan3Pwa
 Simple PWA helper for neoan3
 
-This component generates everything necessary to convert your neoan3 app into a PWA.
+This component generates everything necessary to convert your [neoan3](https://neoan3.rocks) app into a PWA.
 It automatically searches for route-components in your component folder and adds them to the cache.
 
 ## Installation
