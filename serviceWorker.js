@@ -6,7 +6,6 @@ let assets = [
 
 let urlString = assets.join(',') + ',{{routes}}';
 let urlsToCache = urlString.split(',');
-
 self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE_NAME)
