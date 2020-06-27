@@ -51,11 +51,8 @@ class Neoan3Pwa extends Unicore
         $folders = scandir(path . '/component');
 
         foreach ($folders as $folder) {
-
             $potential = path . '/component/' . $folder . '/' . Ops::toPascalCase($folder) . '.ctrl.php';
-
             if ($folder != '.' && $folder != '..' && $folder != 'neoan3Pwa' && file_exists($potential)) {
-
                 $class = '\\Neoan3\\Components\\' . Ops::toPascalCase($folder);
                 if (method_exists($class, 'init')) {
                     $info['routes'] .= ',' . base . Ops::toKebabCase($folder) . '/';
