@@ -52,8 +52,9 @@ class Neoan3Pwa extends Unicore
     function getServiceWorker()
     {
         $info = ['routes' => base, 'name' => sub(2),'base'=>base];
-        $folders = scandir(path . '/component');
-
+        $siblingPath = path . '/component';
+        $folders = scandir($siblingPath);
+        $hashable = 'neoan3';
         foreach ($folders as $folder) {
             $potential = path . '/component/' . $folder . '/' . Ops::toPascalCase($folder) . '.ctrl.php';
             if ($folder != '.' && $folder != '..' && $folder != 'neoan3Pwa' && file_exists($potential)) {

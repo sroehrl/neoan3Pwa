@@ -41,8 +41,9 @@ self.addEventListener('fetch', function(event) {
     );
 });
 self.addEventListener('message', (event) => {
+    console.log('message-event', event);
     if (event.data.action === 'skipWaiting') {
-        clearCaches().then(()=> self.skipWaiting())
+        clearCaches().then(()=> self.skipWaiting()).catch(err => console.log(err))
     }
 });
 function clearCaches() {
