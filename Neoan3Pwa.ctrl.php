@@ -12,6 +12,7 @@ class Neoan3Pwa extends Unicore
 
     function init()
     {
+
         switch (sub(1)) {
             case 'manifest':
                 $this->getManifest();
@@ -24,6 +25,7 @@ class Neoan3Pwa extends Unicore
     }
     function register()
     {
+
         header('Content-Type: application/javascript');
         echo Ops::embraceFromFile('/component/neoan3Pwa/registerServiceworker.js',[
             'base' => base,
@@ -35,6 +37,8 @@ class Neoan3Pwa extends Unicore
     {
         $manifest = [
             'name'      => sub(2),
+            'short_name' => sub(2),
+            'background_color' => '#1c1c1c',
             'icons' => [['src'=>base.'component/neoan3Pwa/n3.png','type'=>'image/png','sizes'=>'512x512']],
             'start_url' => base,
             'display'   => 'standalone',
@@ -55,10 +59,13 @@ class Neoan3Pwa extends Unicore
             if ($folder != '.' && $folder != '..' && $folder != 'neoan3Pwa' && file_exists($potential)) {
                 $class = '\\Neoan3\\Components\\' . Ops::toPascalCase($folder);
                 if (method_exists($class, 'init')) {
+                    $hashable .= file_get_contents($potential);
+                    $hashable .= file_get_contents(path . '/component/' . $folder . '/' . $folder . '.view.html');
                     $info['routes'] .= ',' . base . Ops::toKebabCase($folder) . '/';
                 }
             }
         }
+        $info['cacheName'] = md5($hashable);
         header('Service-Worker-Allowed: /');
         header('Content-Type: application/javascript');
         echo Ops::embraceFromFile('component/neoan3Pwa/serviceWorker.js', $info);

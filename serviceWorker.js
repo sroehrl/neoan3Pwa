@@ -1,4 +1,4 @@
-let CACHE_NAME = '{{name}}';
+let CACHE_NAME = '{{cacheName}}';
 let assets = [
     '{{base}}neoan3-pwa/manifest/{{name}}',
     '{{base}}asset/neoan-favicon.png'
@@ -40,3 +40,19 @@ self.addEventListener('fetch', function(event) {
             })
     );
 });
+self.addEventListener('message', (event) => {
+    if (event.data.action === 'skipWaiting') {
+        clearCaches().then(()=> self.skipWaiting())
+    }
+});
+function clearCaches() {
+    return caches.keys().then(function(keys) {
+        return Promise.all(keys.filter(function(key) {
+                return key.indexOf(CACHE_NAME) !== 0;
+            }).map(function(key) {
+                return caches.delete(key);
+            })
+        );
+    })
+}
+
