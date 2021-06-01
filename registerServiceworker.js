@@ -1,4 +1,5 @@
 // PWA
+let updatedWorker;
 if ('serviceWorker' in navigator) {
     window.isUpdateAvailable = new Promise((resolve,reject)=>{
         window.addEventListener('load', function() {

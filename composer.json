@@ -3,8 +3,8 @@
     "description": "Simple neoan3 PWA helper",
     "minimum-stability": "dev",
     "require": {
-        "mnsami/composer-custom-directory-installer": "1.1.*",
-        "neoan3-apps/ops": "^1"
+        "mnsami/composer-custom-directory-installer": "1.1.*|^2",
+        "neoan3-apps/ops": "1.1.1|^2"
     },
     "license": "MIT",
     "extra": {
