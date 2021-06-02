@@ -57,7 +57,7 @@ class Neoan3Pwacontroller extends Unicore
             if($folder !== 'neoan3Pwa'){
                 $containedFiles = scandir($siblingPath . '/' . $folder);
                 foreach ($containedFiles as $containedFile){
-                    if(strpos($containedFile, '.ctrl.php') !== false){
+                    if(strpos($containedFile, '.ctrl.php') !== false || strpos($containedFile, 'Controller.php') !== false){
                         $class = '\\Neoan3\\Components\\' . Ops::toPascalCase($folder);
                         if (method_exists($class, 'init')) {
                             $hashable .= file_get_contents($siblingPath  . '/' . $folder . '/' . $containedFile);
