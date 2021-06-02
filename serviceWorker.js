@@ -21,25 +21,28 @@ self.addEventListener('fetch', function(event) {
                 if (response) {
                     return response;
                 }
-                return fetch(event.request,{credentials:'include'}).then(
-                    function(response) {
-                        // Check if we received a valid response
-                        if(!response || response.status !== 200 || response.type !== 'basic') {
-                            return response;
-                        }
-                        let responseToCache = response.clone();
-
-                        caches.open(CACHE_NAME)
-                            .then(function(cache) {
-                                cache.put(event.request, responseToCache);
-                            });
-
-                        return response;
-                    }
-                );
+                return fetch(event.request).then(fetchResponse).catch(e => {
+                    // retry once with credentials
+                    return fetch(event.request,{credentials:'include'}).then(fetchResponse).catch(e => console.log('Failed to catch'))
+                });
             })
     );
 });
+function fetchResponse(response) {
+    // Check if we received a valid response
+    if(!response || response.status !== 200 || response.type !== 'basic') {
+        return response;
+    }
+    let responseToCache = response.clone();
+
+    caches.open(CACHE_NAME)
+        .then(function(cache) {
+            cache.put(event.request, responseToCache);
+        });
+
+    return response;
+}
+
 self.addEventListener('message', (event) => {
     console.log('message-event', event);
     if (event.data.action === 'skipWaiting') {
